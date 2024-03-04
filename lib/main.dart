@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:profile_ui/home_screen.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,8 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),       
         useMaterial3: true,
       ),
       home: const NavBar(),

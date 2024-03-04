@@ -19,14 +19,16 @@ class _NavBarState extends State<NavBar> {
         children: <Widget>[ 
           // create a navigation rail 
           NavigationRail( 
+            
             selectedIndex: _selectedIndex, 
             onDestinationSelected: (int index) { 
               setState(() { 
                 _selectedIndex = index; 
               }); 
             }, 
+            extended: true,
             indicatorColor: Colors.blueGrey,
-           labelType: NavigationRailLabelType.none, 
+          // labelType: NavigationRailLabelType.all, 
             backgroundColor: Colors.blueGrey, 
             destinations: const <NavigationRailDestination> 
 
@@ -45,20 +47,28 @@ class _NavBarState extends State<NavBar> {
                 selectedIcon: Icon(Icons.person), 
                 label: Text('Account'), 
               ), 
-              NavigationRailDestination( 
-                icon: Icon(Icons.shopping_cart_outlined), 
-                selectedIcon: Icon(Icons.shopping_cart), 
-                label: Text('Cart'), 
-              ), 
+            //    NavigationRailDestination(
+            // icon: Icon(Icons.mail),
+            // selectedIcon: Icon(Icons.mail),
+            // label: Row(
+            //   children: [
+            //      icon: Icon(Icons.mail),
+            //     Padding(
+            //       padding: EdgeInsets.only(left: 8.0),
+            //       child: Text('Messages'),
+            //     ),
+            //   ],
+            // ), )
+               
             ], 
             selectedIconTheme: const IconThemeData(color: Colors.white), 
             unselectedIconTheme: const IconThemeData(color: Colors.black), 
             selectedLabelTextStyle: const TextStyle(color: Colors.white), 
           ), 
-          // const VerticalDivider(thickness: 1, width: 1), 
+           
           Expanded( 
             child: Container(
-              color: Colors.black,
+              color: const Color.fromARGB(255, 218, 218, 218),
               child: Center( 
                 child: Text('Page Number: $_selectedIndex'), 
               ),
