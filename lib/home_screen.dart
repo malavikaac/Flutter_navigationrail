@@ -45,6 +45,7 @@ class _NavBarState extends State<NavBar> {
             selectedIconTheme: const IconThemeData(color: Colors.white),
             unselectedIconTheme: const IconThemeData(color: Colors.black),
             selectedLabelTextStyle: const TextStyle(color: Colors.white),
+            
           ),
 
           Expanded(
