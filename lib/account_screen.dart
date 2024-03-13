@@ -1,197 +1,140 @@
 import 'package:flutter/material.dart';
-
-class HomeWidget extends StatefulWidget {
-
+class Settings extends StatefulWidget {
+  const Settings({super.key});
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  State<Settings> createState() => _SettingsState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _SettingsState extends State<Settings> {
   int _selectedIndex = 0;
-  bool showNavigationBar = false;
 
-  var list = [
-    HomePage(),
-    WalkPage(),
-    LocationPage(),
-    NotificationPage(),
-    SettingsPage(),
-    SearchPage()
-  ];
-
-  var title = [
-    "HomePage",
-    'WalkPage',
-    'LocationPage',
-    'NotificationPage',
-    'SettingsPage',
-    'SearchPage'
+  final List<Widget> _pages = [
+    const AccountPage(),
+    const ProfilePage(),
+    const SettingsPage(),
+    const HelpPage(),
+    const LogoutPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title[_selectedIndex]),
-        centerTitle: false,
-        leading: IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                showNavigationBar = !showNavigationBar;
-              });
-            }),
-      ),
-      body: Container(
-        child: SafeArea(
-            child: Stack(
-          children: <Widget>[
-            list[_selectedIndex],
-            Positioned(
-              top: 0,
-              left: 0,
-              child: Visibility(
-                visible: showNavigationBar,
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: NavigationRail(
-                    selectedIndex: _selectedIndex,
-                    elevation: 10,
-                    backgroundColor: Colors.white,
-                    leading: Container(
-                      child: const Center(child: Text('leading')),
-                    ),
-                    trailing: Container(
-                      child: const Center(child: Text('trailing')),
-                    ),
-                    selectedIconTheme: const IconThemeData(color: Colors.purple, size: 30),
-                    unselectedIconTheme: const IconThemeData(color: Colors.grey, size: 20),
-                    selectedLabelTextStyle:
-                        const TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
-                    unselectedLabelTextStyle:
-                        const TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
-                    onDestinationSelected: (int index) {
-                      setState(() {
-                        _selectedIndex = index;
-                        showNavigationBar = !showNavigationBar;
-                      });
-                    },
-                    labelType: NavigationRailLabelType.none,
-                    destinations: const [
-                      NavigationRailDestination(
-                        icon: Icon(Icons.home),
-                        selectedIcon: Icon(Icons.home),
-                        label: Text('Home'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.directions_walk),
-                        selectedIcon: Icon(Icons.directions_walk),
-                        label: Text('Walk'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.location_on),
-                        selectedIcon: Icon(Icons.location_on),
-                        label: Text('Location'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.notifications),
-                        selectedIcon: Icon(Icons.notifications),
-                        label: Text('Notifications'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.settings),
-                        selectedIcon: Icon(Icons.settings),
-                        label: Text('Settings'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.search),
-                        selectedIcon: Icon(Icons.search),
-                        label: Text('Search'),
-                      ),
-                    ],
-                  ),
+      body: Row(
+        children: <Widget>[
+          //navigation rail
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: NavigationRail(
+              leading: const Text('Settings'),
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              extended: true,
+              indicatorColor: Colors.white,
+              destinations: const <NavigationRailDestination>[
+                // navigation destinations
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_border),
+                  selectedIcon: Icon(Icons.favorite),
+                  label: Text('Account'),
                 ),
-              ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.person_outline_rounded),
+                  selectedIcon: Icon(Icons.person),
+                  label: Text('Profile'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.settings),
+                  selectedIcon: Icon(Icons.settings),
+                  label: Text('Settings'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.help_outline),
+                  selectedIcon: Icon(Icons.help),
+                  label: Text('Help'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.logout),
+                  selectedIcon: Icon(Icons.logout),
+                  label: Text('Logout'),
+                ),
+              ],
+              selectedIconTheme: const IconThemeData(color: Colors.blue),
+              unselectedIconTheme: const IconThemeData(color: Colors.black),
+              selectedLabelTextStyle: const TextStyle(color: Colors.blue),
             ),
-          ],
-        )),
+          ),
+          Expanded(
+            child: _pages[_selectedIndex],
+          )
+        ],
       ),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+// Separate pages for each menu item
+class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      child: const Center(
-          child: Text('Home Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
+    return const Center(
+      child: Text('Account Page'),
     );
   }
 }
 
-class WalkPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: const Center(
-          child: Text('Walk Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
-    );
-  }
-}
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
-class LocationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.orange,
-      child: const Center(
-          child: Text('Location Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
-    );
-  }
-}
-
-class NotificationPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: const Center(
-          child: Text('Notification Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
+    return const Center(
+      child: Text('Profile Page'),
     );
   }
 }
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
+      color: Colors.blueGrey,
       child: const Center(
-          child: Text('Settings Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
+        child: Text('Settings Page'),
+      ),
     );
   }
 }
 
-class SearchPage extends StatelessWidget {
+class HelpPage extends StatelessWidget {
+  const HelpPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.teal,
+      color: Colors.amberAccent,
       child: const Center(
-          child: Text('Search Page',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0))),
+        child: Text('Help Page'),
+      ),
+    );
+  }
+}
+
+class LogoutPage extends StatelessWidget {
+  const LogoutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Logout Page'),
     );
   }
 }
