@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:profile_ui/account_screen.dart';
-import 'package:profile_ui/silverappbar.dart';
+
+import 'package:profile_ui/time_picker.dart';
 
 
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),       
         useMaterial3: true,
       ),
-      home:  ScrollingAppBarExample(),
+      home:  const TimeWidget(),
     );
   }
 }
